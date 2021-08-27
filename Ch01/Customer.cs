@@ -57,14 +57,37 @@ namespace RefactoringCodeExample
 
                 // show figures for this rental
                 result += "\t" + each.Movie.Title + "\t" + each.GetCharge().ToString() + "\n";
-                totalAmount += each.GetCharge();
+                //totalAmount += each.GetCharge();
 
             }
 
+            // 去除临时变量  使用查询函数 query method 取代临时变量
+            // refacoring-step-04：Replace Temp with Query 以查询取代临时变量
             // add footer lines
-            result += "Amount owed is " + totalAmount.ToString() + "\n";
-            result += "You earned " + frequentRenterPoints.ToString() + " frequent renter points\n";
+            //result += "Amount owed is " + totalAmount.ToString() + "\n";
+            //result += "You earned " + frequentRenterPoints.ToString() + " frequent renter points\n
+            result += "Amount owed is " + GetTotalCharge().ToString() + "\n";
+            result += "You earned " + GetTotalFrequentRenterPoints().ToString() + " frequent renter points\n";
 
+            return result;
+        }
+
+        private double GetTotalCharge()
+        {
+            double result = 0;
+            foreach (Rental each in _rentals)
+            {
+                result += each.GetCharge();
+            }
+            return result;
+        }
+        private int GetTotalFrequentRenterPoints()
+        {
+            var result = 0;
+            foreach (Rental each in _rentals)
+            {
+                result += each.GetFrequentRenterPoints();
+            }
             return result;
         }
 
