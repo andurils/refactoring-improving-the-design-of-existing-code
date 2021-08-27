@@ -41,19 +41,23 @@ namespace RefactoringCodeExample
             {
                 double thisAmount = 0;
                 // refacoring-step-01：Extract Method 提炼函数
-                thisAmount = amountFor(each);
+                // 金额计算 determine amounts for each line
+                // thisAmount = each.GetCharge();
 
-                // add frequent renter points
-                frequentRenterPoints++;
-                // add bouns for a two day new release rental
-                if ((each.Movie.PriceCode == Movie.NewRelease) && (each.DaysRented > 1))
-                {
-                    frequentRenterPoints++;
-                }
+
+                //// add frequent renter points
+                //frequentRenterPoints++;
+                //// add bouns for a two day new release rental
+                //if ((each.Movie.PriceCode == Movie.NewRelease) && (each.DaysRented > 1))
+                //{
+                //    frequentRenterPoints++;
+                //}
+                // 常客积分计算   refacoring-step-03：Extract Method 提炼函数
+                frequentRenterPoints = each.GetFrequentRenterPoints();
 
                 // show figures for this rental
-                result += "\t" + each.Movie.Title + "\t" + thisAmount.ToString() + "\n";
-                totalAmount += thisAmount;
+                result += "\t" + each.Movie.Title + "\t" + each.GetCharge().ToString() + "\n";
+                totalAmount += each.GetCharge();
 
             }
 
@@ -64,37 +68,11 @@ namespace RefactoringCodeExample
             return result;
         }
 
-        /// <summary>
-        ///  determine amounts for each line
-        /// </summary>
-        /// <param name="aRental"></param>
-        /// <returns></returns>
-        private double amountFor(Rental aRental )
-        {
-            double result = 0;
-            switch (aRental.Movie.PriceCode)
-            {
-                case Movie.Regular:
-                    result += 2;
-                    if (aRental.DaysRented > 2)
-                    {
-                        result += (aRental.DaysRented - 2) * 1.5;
-                    };
-                    break;
-                case Movie.NewRelease:
-                    result += aRental.DaysRented * 3;
-                    break;
-                case Movie.Childrens:
-                    result += 1.5;
-                    if (aRental.DaysRented > 1)
-                    {
-                        result += (aRental.DaysRented - 3) * 1.5;
-                    };
-                    break;
 
-            }
+        //private double AmountFor(Rental aRental )
+        //{
 
-            return result;
-        }
+        //    return aRental.GetCharge();
+        //}
     }
 }
