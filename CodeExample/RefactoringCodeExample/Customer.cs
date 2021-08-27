@@ -55,7 +55,7 @@ namespace RefactoringCodeExample
                         break;
                     case Movie.Childrens:
                         thisAmount += 1.5;
-                        if (each.DaysRented > 1)
+                        if (each.DaysRented > 3)
                         {
                             thisAmount += (each.DaysRented - 3) * 1.5;
                         };

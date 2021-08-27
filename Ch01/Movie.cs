@@ -63,7 +63,7 @@ namespace RefactoringCodeExample
 
         public double GetCharge(int daysRented)
         {
-            return _price.GetCharge(daysRented);
+
             //double result = 0;
             //switch (PriceCode)
             //{
@@ -88,6 +88,8 @@ namespace RefactoringCodeExample
             //}
 
             //return result;
+            // Move Method
+            return _price.GetCharge(daysRented);
         }
 
         public int GetFrequentRenterPoints(int daysRented)

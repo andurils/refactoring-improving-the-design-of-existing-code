@@ -7,33 +7,12 @@ namespace RefactoringCodeExample
     public abstract class Price
     {
         public abstract int GetPriceCode();
+        // Replace Conditional with Polymorphism  以多态取代条件表达式
+        public abstract double GetCharge(int daysRented);
 
-        public double GetCharge(int daysRented)
+        public int GetFrequentRenterPoints(int daysRented)
         {
-            double result = 0;
-            switch (GetPriceCode())
-            {
-                case Movie.Regular:
-                    result += 2;
-                    if (daysRented > 2)
-                    {
-                        result += (daysRented - 2) * 1.5;
-                    };
-                    break;
-                case Movie.NewRelease:
-                    result += daysRented * 3;
-                    break;
-                case Movie.Childrens:
-                    result += 1.5;
-                    if (daysRented > 1)
-                    {
-                        result += (daysRented - 3) * 1.5;
-                    };
-                    break;
-
-            }
-
-            return result;
+            return 1;
         }
 
     }
@@ -44,12 +23,32 @@ namespace RefactoringCodeExample
         {
             return Movie.Childrens;
         }
+        public override double GetCharge(int daysRented)
+        {
+            double result = 1.5;
+            if (daysRented > 3)
+            {
+                result += (daysRented - 3) * 1.5;
+            };
+
+            return result;
+        }
     }
     public class NewReleasePrice : Price
     {
         public override int GetPriceCode()
         {
             return Movie.NewRelease;
+        }
+
+        public override double GetCharge(int daysRented)
+        {
+            return daysRented * 3;
+        }
+
+        public  int GetFrequentRenterPoints(int daysRented)
+        {
+            return (daysRented > 1) ? 2 : 1; 
         }
     }
 
@@ -58,6 +57,17 @@ namespace RefactoringCodeExample
         public override int GetPriceCode()
         {
             return Movie.Regular;
+        }
+
+        public override double GetCharge(int daysRented)
+        {
+            double result = 2;
+            if (daysRented > 2)
+            {
+                result += (daysRented - 2) * 1.5;
+            };
+
+            return result;
         }
     }
 }
