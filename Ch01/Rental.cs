@@ -31,43 +31,45 @@ namespace RefactoringCodeExample
         // refacoring-step-02：Move Method 搬移函数
         public double GetCharge()
         {
-            double result = 0;
-            switch (Movie.PriceCode)
-            {
-                case Movie.Regular:
-                    result += 2;
-                    if (DaysRented > 2)
-                    {
-                        result += (DaysRented - 2) * 1.5;
-                    };
-                    break;
-                case Movie.NewRelease:
-                    result += DaysRented * 3;
-                    break;
-                case Movie.Childrens:
-                    result += 1.5;
-                    if (DaysRented > 1)
-                    {
-                        result += (DaysRented - 3) * 1.5;
-                    };
-                    break;
+            return Movie.GetCharge(DaysRented); 
+            //double result = 0;
+            //switch (Movie.PriceCode)
+            //{
+            //    case Movie.Regular:
+            //        result += 2;
+            //        if (DaysRented > 2)
+            //        {
+            //            result += (DaysRented - 2) * 1.5;
+            //        };
+            //        break;
+            //    case Movie.NewRelease:
+            //        result += DaysRented * 3;
+            //        break;
+            //    case Movie.Childrens:
+            //        result += 1.5;
+            //        if (DaysRented > 1)
+            //        {
+            //            result += (DaysRented - 3) * 1.5;
+            //        };
+            //        break;
 
-            }
+            //}
 
-            return result;
+            //return result;
         }
 
         public int GetFrequentRenterPoints()
         {
+            return Movie.GetFrequentRenterPoints(DaysRented);
             // add bouns for a two day new release rental
-            if ((Movie.PriceCode == Movie.NewRelease) && (DaysRented > 1))
-            {
-                return 2;
-            }
-            else
-            {
-                return 1;
-            }
+            //if ((Movie.PriceCode == Movie.NewRelease) && (DaysRented > 1))
+            //{
+            //    return 2;
+            //}
+            //else
+            //{
+            //    return 1;
+            //}
         }
     }
 }

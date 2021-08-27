@@ -33,13 +33,12 @@ namespace RefactoringCodeExample
 
         public string Statement()
         {
-            double totalAmount = 0;
             int frequentRenterPoints = 0;
             List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
             foreach (Rental each in rentals)
             {
-                double thisAmount = 0;
+
                 // refacoring-step-01：Extract Method 提炼函数
                 // 金额计算 determine amounts for each line
                 // thisAmount = each.GetCharge();
@@ -68,6 +67,23 @@ namespace RefactoringCodeExample
             //result += "You earned " + frequentRenterPoints.ToString() + " frequent renter points\n
             result += "Amount owed is " + GetTotalCharge().ToString() + "\n";
             result += "You earned " + GetTotalFrequentRenterPoints().ToString() + " frequent renter points\n";
+
+            return result;
+        }
+
+        public string HtmlStatement()
+        { 
+            List<Rental> rentals = _rentals;
+            string result = "<H1>Rental Record for <EM>" + Name + "</EM></H1><P>\n";
+            foreach (Rental each in rentals)
+            { 
+                // show figures for this rental
+                result +=   each.Movie.Title + ":" + each.GetCharge().ToString() + "<BR/>\n";  
+            }
+
+            // add footer lines 
+            result += "<P> You owed <EM> " + GetTotalCharge().ToString() + "</EM></P>\n";
+            result += "On this rental you earned  <EM> " + GetTotalFrequentRenterPoints().ToString() + " </EM> frequent renter points </P> \n";
 
             return result;
         }
